@@ -23,8 +23,13 @@ const getProductById = (productId) => __awaiter(void 0, void 0, void 0, function
     const result = yield product_model_1.Product.findById(productId);
     return result;
 });
+const updateProductById = (productId, product) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield product_model_1.Product.findByIdAndUpdate(productId, product);
+    return result;
+});
 exports.ProductService = {
     createProduct,
     getProducts,
     getProductById,
+    updateProductById,
 };

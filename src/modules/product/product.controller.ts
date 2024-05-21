@@ -55,8 +55,53 @@ const getProductById = async (req: Request, res: Response) => {
     });
   }
 };
+
+const updateProductById = async (req: Request, res: Response) => {
+  const { productId } = req.params;
+  const productData = req.body;
+
+  try {
+    const existingProduct = await ProductService.getProductById(productId);
+
+    if (!existingProduct) {
+      res.status(404).json({
+        success: false,
+        message: "Product not found!",
+      });
+      return;
+    }
+
+    const newData = {
+      name: productData.name || existingProduct.name,
+      price: productData.price || existingProduct.price,
+      description: productData.description || existingProduct.description,
+      category: productData.category || existingProduct.category,
+      tags: productData.tags || existingProduct.tags,
+      variants: productData.variants || existingProduct.variants,
+      inventory: productData.inventory || existingProduct.inventory,
+    };
+
+    const zodParsedData = productValidationSchema.parse(newData);
+    const result = await ProductService.updateProductById(
+      productId,
+      zodParsedData
+    );
+    res.json({
+      success: true,
+      message: "Product updated successfully!",
+      data: result,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Product update failed!",
+      error: error,
+    });
+  }
+};
 export const ProductController = {
   createProduct,
   getProducts,
   getProductById,
+  updateProductById,
 };

@@ -66,8 +66,46 @@ const getProductById = (req, res) => __awaiter(void 0, void 0, void 0, function*
         });
     }
 });
+const updateProductById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { productId } = req.params;
+    const productData = req.body;
+    try {
+        const existingProduct = yield product_service_1.ProductService.getProductById(productId);
+        if (!existingProduct) {
+            res.status(404).json({
+                success: false,
+                message: "Product not found!",
+            });
+            return;
+        }
+        const newData = {
+            name: productData.name || existingProduct.name,
+            price: productData.price || existingProduct.price,
+            description: productData.description || existingProduct.description,
+            category: productData.category || existingProduct.category,
+            tags: productData.tags || existingProduct.tags,
+            variants: productData.variants || existingProduct.variants,
+            inventory: productData.inventory || existingProduct.inventory,
+        };
+        const zodParsedData = product_validation_1.productValidationSchema.parse(newData);
+        const result = yield product_service_1.ProductService.updateProductById(productId, zodParsedData);
+        res.json({
+            success: true,
+            message: "Product updated successfully!",
+            data: result,
+        });
+    }
+    catch (error) {
+        res.status(500).json({
+            success: false,
+            message: "Product update failed!",
+            error: error,
+        });
+    }
+});
 exports.ProductController = {
     createProduct,
     getProducts,
     getProductById,
+    updateProductById,
 };
