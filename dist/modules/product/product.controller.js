@@ -103,9 +103,36 @@ const updateProductById = (req, res) => __awaiter(void 0, void 0, void 0, functi
         });
     }
 });
+const deleteProductById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { productId } = req.params;
+    try {
+        const existingProduct = yield product_service_1.ProductService.getProductById(productId);
+        if (!existingProduct) {
+            res.status(404).json({
+                success: false,
+                message: "Product not found!",
+            });
+            return;
+        }
+        yield product_service_1.ProductService.deleteProductById(productId);
+        res.json({
+            success: true,
+            message: "Product deleted successfully!",
+            data: null,
+        });
+    }
+    catch (error) {
+        res.status(500).json({
+            success: false,
+            message: "Product delete failed!",
+            error: error,
+        });
+    }
+});
 exports.ProductController = {
     createProduct,
     getProducts,
     getProductById,
     updateProductById,
+    deleteProductById,
 };
