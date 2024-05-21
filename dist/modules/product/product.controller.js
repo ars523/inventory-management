@@ -19,14 +19,14 @@ const createProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         const result = yield product_service_1.ProductService.createProduct(zodParsedData);
         res.json({
             success: true,
-            message: "Product created successfully",
+            message: "Product created successfully!",
             data: result,
         });
     }
     catch (error) {
         res.status(500).json({
             success: false,
-            message: "Product creation failed",
+            message: "Product creation failed!",
             error: error,
         });
     }
@@ -36,14 +36,32 @@ const getProducts = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         const result = yield product_service_1.ProductService.getProducts();
         res.json({
             success: true,
-            message: "Products fetched successfully",
+            message: "Products fetched successfully!",
             data: result,
         });
     }
     catch (error) {
         res.status(500).json({
             success: false,
-            message: "Products fetch failed",
+            message: "Products fetch failed!",
+            error: error,
+        });
+    }
+});
+const getProductById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { productId } = req.params;
+    try {
+        const result = yield product_service_1.ProductService.getProductById(productId);
+        res.json({
+            success: true,
+            message: "Product fetched successfully!",
+            data: result,
+        });
+    }
+    catch (error) {
+        res.status(500).json({
+            success: false,
+            message: "Product fetch failed!",
             error: error,
         });
     }
@@ -51,4 +69,5 @@ const getProducts = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
 exports.ProductController = {
     createProduct,
     getProducts,
+    getProductById,
 };

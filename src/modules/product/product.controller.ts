@@ -9,13 +9,13 @@ const createProduct = async (req: Request, res: Response) => {
     const result = await ProductService.createProduct(zodParsedData);
     res.json({
       success: true,
-      message: "Product created successfully",
+      message: "Product created successfully!",
       data: result,
     });
   } catch (error) {
     res.status(500).json({
       success: false,
-      message: "Product creation failed",
+      message: "Product creation failed!",
       error: error,
     });
   }
@@ -26,19 +26,37 @@ const getProducts = async (req: Request, res: Response) => {
     const result = await ProductService.getProducts();
     res.json({
       success: true,
-      message: "Products fetched successfully",
+      message: "Products fetched successfully!",
       data: result,
     });
   } catch (error) {
     res.status(500).json({
       success: false,
-      message: "Products fetch failed",
+      message: "Products fetch failed!",
       error: error,
     });
   }
 };
 
+const getProductById = async (req: Request, res: Response) => {
+  const { productId } = req.params;
+  try {
+    const result = await ProductService.getProductById(productId);
+    res.json({
+      success: true,
+      message: "Product fetched successfully!",
+      data: result,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Product fetch failed!",
+      error: error,
+    });
+  }
+};
 export const ProductController = {
   createProduct,
   getProducts,
+  getProductById,
 };

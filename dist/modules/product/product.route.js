@@ -9,4 +9,5 @@ const product_controller_1 = require("./product.controller");
 const router = express_1.default.Router();
 router.post("/", product_controller_1.ProductController.createProduct);
 router.get("/", product_controller_1.ProductController.getProducts);
+router.get("/:productId", product_controller_1.ProductController.getProductById);
 exports.productRouter = router;
