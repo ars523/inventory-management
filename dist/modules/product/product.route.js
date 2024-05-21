@@ -3,10 +3,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.productRouter = void 0;
 const express_1 = __importDefault(require("express"));
-const product_route_1 = require("./modules/product/product.route");
-const app = (0, express_1.default)();
-//Parser
-app.use(express_1.default.json());
-app.use("/api/products", product_route_1.productRouter);
-exports.default = app;
+const product_controller_1 = require("./product.controller");
+const router = express_1.default.Router();
+router.post("/", product_controller_1.ProductController.createProduct);
+exports.productRouter = router;
