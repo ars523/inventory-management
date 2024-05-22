@@ -1,8 +1,8 @@
 ## Installation Guide
 
 1. Download and install nodejs:
-   [Download Node.js]('https://nodejs.org/en/download/prebuilt-installer')
-   <br>
+   [https://nodejs.org/en/download/prebuilt-installer]('https://nodejs.org/en/download/prebuilt-installer')
+   <br/>
 
 2. Clone the repository:
    ```bash
