@@ -9,7 +9,7 @@ app.use(express.json());
 //Routes
 app.use("/api/products", productRouter);
 app.use("/api/orders", orderRouter);
-app.use("/", (req: Request, res: Response) => {
+app.use("/api", (req: Request, res: Response) => {
   res.json({
     success: true,
     message: "Welcome to the inventory management API",
