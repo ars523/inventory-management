@@ -29,6 +29,33 @@ const createOrder = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         });
     }
 });
+const getOrders = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const email = req.query.email;
+    try {
+        const result = yield order_service_1.OrderService.getOrders(email);
+        if (email) {
+            res.json({
+                success: true,
+                message: "Orders fetched successfully for user email!",
+                data: result,
+            });
+            return;
+        }
+        res.json({
+            success: true,
+            message: "Orders fetched successfully!",
+            data: result,
+        });
+    }
+    catch (error) {
+        res.status(500).json({
+            success: false,
+            message: "Orders fetch failed!",
+            error: error,
+        });
+    }
+});
 exports.OrderController = {
     createOrder,
+    getOrders,
 };

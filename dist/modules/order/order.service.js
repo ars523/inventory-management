@@ -15,16 +15,12 @@ const createOrder = (order) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield order_model_1.Order.create(order);
     return result;
 });
-const getOrders = () => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield order_model_1.Order.find();
-    return result;
-});
-const getOrderByEmail = (email) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield order_model_1.Order.find({ email });
+const getOrders = (email) => __awaiter(void 0, void 0, void 0, function* () {
+    const query = email ? { email } : {};
+    const result = yield order_model_1.Order.find(query);
     return result;
 });
 exports.OrderService = {
     createOrder,
     getOrders,
-    getOrderByEmail,
 };
