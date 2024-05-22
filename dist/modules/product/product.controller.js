@@ -35,6 +35,18 @@ const getProducts = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     const searchTerm = req.query.searchTerm;
     try {
         const result = yield product_service_1.ProductService.getProducts(searchTerm);
+        if (searchTerm) {
+            res.json({
+                success: true,
+                message: "Products matching search term " +
+                    "'" +
+                    searchTerm +
+                    "'" +
+                    " fetched successfully!",
+                data: result,
+            });
+            return;
+        }
         res.json({
             success: true,
             message: "Products fetched successfully",
