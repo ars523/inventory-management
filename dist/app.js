@@ -12,6 +12,12 @@ app.use(express_1.default.json());
 //Routes
 app.use("/api/products", product_route_1.productRouter);
 app.use("/api/orders", order_route_1.orderRouter);
+app.use("/", (req, res) => {
+    res.json({
+        success: true,
+        message: "Welcome to the inventory management API",
+    });
+});
 // Error handling for invalid routes
 app.use("/*", (req, res) => {
     res.status(404).json({
