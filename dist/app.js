@@ -25,4 +25,12 @@ app.use("/*", (req, res) => {
         message: "Route not found",
     });
 });
+//Global error handler
+// eslint-disable-next-line
+app.use((err, req, res, next) => {
+    res.status(500).json({
+        success: false,
+        message: "Something went wrong",
+    });
+});
 exports.default = app;

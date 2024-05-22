@@ -1,4 +1,4 @@
-import express, { Request, Response } from "express";
+import express, { NextFunction, Request, Response } from "express";
 import { productRouter } from "./modules/product/product.route";
 import { orderRouter } from "./modules/order/order.route";
 const app = express();
@@ -21,6 +21,16 @@ app.use("/*", (req: Request, res: Response) => {
   res.status(404).json({
     success: false,
     message: "Route not found",
+  });
+});
+
+//Global error handler
+
+// eslint-disable-next-line
+app.use((err: any, req: Request, res: Response, next: NextFunction) => {
+  res.status(500).json({
+    success: false,
+    message: "Something went wrong",
   });
 });
 
