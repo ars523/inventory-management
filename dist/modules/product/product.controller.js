@@ -32,8 +32,9 @@ const createProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     }
 });
 const getProducts = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const searchTerm = req.query.searchTerm;
     try {
-        const result = yield product_service_1.ProductService.getProducts();
+        const result = yield product_service_1.ProductService.getProducts(searchTerm);
         res.json({
             success: true,
             message: "Products fetched successfully!",

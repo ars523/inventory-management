@@ -6,8 +6,20 @@ const createProduct = async (product: TProduct) => {
   return result;
 };
 
-const getProducts = async () => {
-  const result = await Product.find();
+const getProducts = async (searchTerm: string) => {
+  const allQueries: (
+    | { name: { $regex: string } }
+    | { description: { $regex: string } }
+  )[] = [];
+
+  if (searchTerm) {
+    searchTerm.split(" ").forEach((element) => {
+      allQueries.push({ name: { $regex: String(element) } });
+      allQueries.push({ description: { $regex: String(element) } });
+    });
+  }
+  const finalQuery = allQueries.length > 0 ? { $or: allQueries } : {};
+  const result = await Product.find(finalQuery);
   return result;
 };
 

@@ -15,8 +15,16 @@ const createProduct = (product) => __awaiter(void 0, void 0, void 0, function* (
     const result = yield product_model_1.Product.create(product);
     return result;
 });
-const getProducts = () => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield product_model_1.Product.find();
+const getProducts = (searchTerm) => __awaiter(void 0, void 0, void 0, function* () {
+    const allQueries = [];
+    if (searchTerm) {
+        searchTerm.split(" ").forEach((element) => {
+            allQueries.push({ name: { $regex: String(element) } });
+            allQueries.push({ description: { $regex: String(element) } });
+        });
+    }
+    const finalQuery = allQueries.length > 0 ? { $or: allQueries } : {};
+    const result = yield product_model_1.Product.find(finalQuery);
     return result;
 });
 const getProductById = (productId) => __awaiter(void 0, void 0, void 0, function* () {
