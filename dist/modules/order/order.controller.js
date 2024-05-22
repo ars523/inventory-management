@@ -58,17 +58,18 @@ const getOrders = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const email = req.query.email;
     try {
         const result = yield order_service_1.OrderService.getOrders(email);
-        if (email) {
-            res.json({
-                success: true,
-                message: "Orders fetched successfully for user email!",
-                data: result,
+        if (result.length === 0 && email) {
+            res.status(404).json({
+                success: false,
+                message: "Order not found!",
             });
             return;
         }
         res.json({
             success: true,
-            message: "Orders fetched successfully!",
+            message: email
+                ? "Orders fetched successfully for user email!"
+                : "Orders fetched successfully!",
             data: result,
         });
     }
