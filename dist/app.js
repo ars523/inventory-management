@@ -12,7 +12,7 @@ app.use(express_1.default.json());
 //Routes
 app.use("/api/products", product_route_1.productRouter);
 app.use("/api/orders", order_route_1.orderRouter);
-app.use("/", (req, res) => {
+app.use("/api", (req, res) => {
     res.json({
         success: true,
         message: "Welcome to the inventory management API",
