@@ -1,4 +1,4 @@
-## Installation Guide for Local Machine
+## Installation Guide
 
 1. Download and install nodejs:
    [Download Node.js]('https://nodejs.org/en/download/prebuilt-installer')
