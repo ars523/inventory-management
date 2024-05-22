@@ -32,7 +32,9 @@ const getProductById = (productId) => __awaiter(void 0, void 0, void 0, function
     return result;
 });
 const updateProductById = (productId, product) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield product_model_1.Product.findByIdAndUpdate(productId, product);
+    const result = yield product_model_1.Product.findOneAndUpdate({ _id: productId }, product, {
+        new: true,
+    });
     return result;
 });
 const deleteProductById = (productId) => __awaiter(void 0, void 0, void 0, function* () {

@@ -37,7 +37,7 @@ const getProducts = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         const result = yield product_service_1.ProductService.getProducts(searchTerm);
         res.json({
             success: true,
-            message: "Products fetched successfully!",
+            message: "Products fetched successfully",
             data: result,
         });
     }
@@ -53,6 +53,13 @@ const getProductById = (req, res) => __awaiter(void 0, void 0, void 0, function*
     const { productId } = req.params;
     try {
         const result = yield product_service_1.ProductService.getProductById(productId);
+        if (!result) {
+            res.status(404).json({
+                success: false,
+                message: "Product not found!",
+            });
+            return;
+        }
         res.json({
             success: true,
             message: "Product fetched successfully!",
